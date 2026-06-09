@@ -20,24 +20,22 @@ def avvia_server_controllo():
     httpd = HTTPServer(server_address, HealthCheckHandler)
     httpd.serve_forever()
 
-# --- I TUOI DATI ---
+# --- CONFIGURAZIONE BOT ---
 TOKEN = "8845798324:AAGAoFnMGLwrvLO-qJa6gT2moFBzHg2CWT8"
 CHAT_ID = "-1001798648198"
 TAG = "scontierisp0d-21"
 FILE_MEMORIA = "pubblicati.txt"
 
+# --- LISTA FONTI AGGIORNATA ---
 FONTI_SCONTI = [
     "https://www.tuttoandroid.net/tag/offerte-amazon/feed/",
     "https://www.smartworld.it/tag/offerte-amazon/feed/",
-    "https://www.tuttotech.net/tag/offerte-amazon/feed/",
-    "https://www.computermagazine.it/tag/offerte-amazon/feed/",
-    "https://www.hardwareupgrade.it/rss_news.xml",
-    "https://www.spaziogames.it/feed/",
-    "https://www.webnews.it/feed/",
-    "https://www.lechicchedikikka.it/feed/",
+    "https://www.androidworld.it/tag/offerte-amazon/feed/",
+    "https://www.hdblog.it/tag/offerte-amazon/feed/",
+    "https://www.chimerarevo.com/tag/offerte-amazon/feed/",
     "https://www.tariffando.it/feed/",
-    "https://www.focusedtech.it/feed/",
-    "https://www.player.it/feed/"
+    "https://www.lechicchedikikka.it/feed/",
+    "https://www.focusedtech.it/feed/"
 ]
 
 def ora_consentita():
