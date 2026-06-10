@@ -97,20 +97,21 @@ while True:
                 contenuto = entry.get('content', [{'value': ''}])[0]['value'] or entry.get('summary', '')
                 soup = BeautifulSoup(contenuto, 'html.parser')
                 link_amazon = next((a['href'] for a in soup.find_all('a', href=True) if "amazon.it" in a['href'] or "amzn.to" in a['href']), None)
+
+# ... (il codice sopra resta uguale)
+                link_amazon = next((a['href'] for a in soup.find_all('a', href=True) if "amazon.it" in a['href'] or "amzn.to" in a['href']), None)
+
+                if link_amazon:
+                    link_pulito, asin = pulisci_e_trasforma_link(link_amazon)
+                    id_univoco = asin if asin else link_amazon
+                    
+                    if not gia_pubblicato(id_univoco):
+                        img_tag = soup.find('img', src=True)
+                        foto_url = img_tag['src'] if img_tag else "https://images.unsplash.com/photo-1523474253046-8cd2748b5fd2?w=600"
+                        titolo = entry.title.replace("<", "").replace(">", "")
+                        messaggio = f"🛍️ <b>{titolo}</b>\n\n🔥 Super occasione!\n\n👉 <b>Acquista qui</b>: {link_pulito}"
+                        invia_telegram(foto_url, messaggio)
+                        salva_in_memoria(id_univoco)
+                        time.sleep(5)
                 
-              if link_amazon:
-        link_pulito, asin = pulisci_e_trasforma_link(link_amazon)
-        
-        # Se non trova l'ASIN, usiamo il link originale come identificativo
-        id_univoco = asin if asin else link_amazon
-        
-        if not gia_pubblicato(id_univoco):
-            img_tag = soup.find('img', src=True)
-            foto_url = img_tag['src'] if img_tag else "https://images.unsplash.com/photo-1523474253046-8cd2748b5fd2?w=600"
-            titolo = entry.title.replace("<", "").replace(">", "")
-            messaggio = f"🛍️ <b>{titolo}</b>\n\n🔥 Super occasione!\n\n👉 <b>Acquista qui</b>: {link_pulito}"
-            invia_telegram(foto_url, messaggio)
-            salva_in_memoria(id_univoco)
-            time.sleep(5)
-    
-    time.sleep(5)
+                time.sleep(5)
