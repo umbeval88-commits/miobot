@@ -104,6 +104,11 @@ while True:
                 if link_amazon:
                     print(f"DEBUG: Trovato link Amazon nell'articolo: {entry.title}", flush=True)
                     link_pulito, asin = pulisci_e_trasforma_link(link_amazon)
+                    
+                    # Se la pulizia fallisce o restituisce None, salviamo il link originale
+                    if not link_pulito:
+                        link_pulito = link_amazon
+                        
                     id_univoco = asin if asin else link_amazon
                     
                     if not gia_pubblicato(id_univoco):
