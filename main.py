@@ -28,12 +28,10 @@ FILE_MEMORIA = "pubblicati.txt"
 
 # --- LISTA FONTI AD ALTO VOLUME ---
 FONTI_SCONTI = [
-    "https://www.amazon.it/gp/deals/feed/", # Il feed ufficiale Amazon (se funzionante)
-    "https://www.hdblog.it/feed/",
-    "https://feeds.feedburner.com/scontiamolo", # Storico per le offerte Amazon
-    "https://www.tecnocino.it/feed/",
-    "https://www.offerte-amazon.it/feed/",
-    "https://www.idealo.it/feed/blog.xml"
+    "https://www.hdblog.it/hardware/rss/",
+    "https://www.smartworld.it/feed",
+    "https://www.spaziogames.it/feed/",
+    "https://www.tomshw.it/feed/"
 ]
 
 def ora_consentita():
