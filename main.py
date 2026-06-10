@@ -69,14 +69,18 @@ def pulisci_e_trasforma_link(url):
     return None, None
     
 def invia_telegram(foto, testo):
-    # Invece di inviare una foto, inviamo solo il testo (più leggero e veloce)
-    messaggio_finale = f"{testo}\n\n[Immagine: {foto}]"
-    url = f"https://api.telegram.org/bot{TOKEN}/sendMessage"
-    dati = {"chat_id": CHAT_ID, "text": messaggio_finale, "parse_mode": "HTML"}
+    # Usiamo il metodo sendPhoto dell'API Telegram
+    url = f"https://api.telegram.org/bot{TOKEN}/sendPhoto"
+    dati = {
+        "chat_id": CHAT_ID,
+        "photo": foto,
+        "caption": testo,
+        "parse_mode": "HTML"
+    }
     try:
-        res = requests.post(url, json=dati, timeout=60)
+        res = requests.post(url, data=dati, timeout=60)
         if res.status_code == 200:
-            print(f"✅ Messaggio inviato!", flush=True)
+            print(f"✅ Messaggio con foto inviato!", flush=True)
         else:
             print(f"⚠️ Errore Telegram {res.status_code}: {res.text}", flush=True)
     except Exception as e:
