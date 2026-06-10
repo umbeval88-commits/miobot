@@ -26,16 +26,14 @@ CHAT_ID = "-1001798648198"
 TAG = "scontierisp0d-21"
 FILE_MEMORIA = "pubblicati.txt"
 
-# --- LISTA FONTI AGGIORNATA ---
+# --- LISTA FONTI AD ALTO VOLUME ---
 FONTI_SCONTI = [
-    "https://www.tuttoandroid.net/tag/offerte-amazon/feed/",
-    "https://www.smartworld.it/tag/offerte-amazon/feed/",
-    "https://www.androidworld.it/tag/offerte-amazon/feed/",
-    "https://www.hdblog.it/tag/offerte-amazon/feed/",
-    "https://www.chimerarevo.com/tag/offerte-amazon/feed/",
-    "https://www.tariffando.it/feed/",
-    "https://www.lechicchedikikka.it/feed/",
-    "https://www.focusedtech.it/feed/"
+    "https://www.amazon.it/gp/deals/feed/", # Il feed ufficiale Amazon (se funzionante)
+    "https://www.hdblog.it/feed/",
+    "https://feeds.feedburner.com/scontiamolo", # Storico per le offerte Amazon
+    "https://www.tecnocino.it/feed/",
+    "https://www.offerte-amazon.it/feed/",
+    "https://www.idealo.it/feed/blog.xml"
 ]
 
 def ora_consentita():
