@@ -28,7 +28,7 @@ FILE_MEMORIA = "pubblicati.txt"
 
 # --- LISTA FONTI AD ALTO VOLUME ---
 FONTI_SCONTI = [
-    "https://www.hdblog.it/hardware/rss/",
+    "https://www.tariffando.it/feed/",
     "https://www.smartworld.it/feed",
     "https://www.spaziogames.it/feed/",
     "https://www.tomshw.it/feed/"
