@@ -90,22 +90,26 @@ def invia_telegram(foto, testo):
 threading.Thread(target=avvia_server_controllo, daemon=True).start()
 
 while True:
+    print("DEBUG: Avvio un nuovo ciclo completo di controllo...", flush=True)
     if ora_consentita():
+        print("DEBUG: L'orario è consentito. Inizio a controllare i siti...", flush=True)
         for fonte in FONTI_SCONTI:
+            print(f"DEBUG: Sto scaricando il feed da: {fonte}", flush=True)
             feed = feedparser.parse(fonte)
+            print(f"DEBUG: Trovati {len(feed.entries)} articoli in questo feed.", flush=True)
+            
             for entry in feed.entries:
                 contenuto = entry.get('content', [{'value': ''}])[0]['value'] or entry.get('summary', '')
                 soup = BeautifulSoup(contenuto, 'html.parser')
                 link_amazon = next((a['href'] for a in soup.find_all('a', href=True) if "amazon.it" in a['href'] or "amzn.to" in a['href']), None)
-
-# ... (il codice sopra resta uguale)
-                link_amazon = next((a['href'] for a in soup.find_all('a', href=True) if "amazon.it" in a['href'] or "amzn.to" in a['href']), None)
-
+                
                 if link_amazon:
+                    print(f"DEBUG: Trovato link Amazon nell'articolo: {entry.title}", flush=True)
                     link_pulito, asin = pulisci_e_trasforma_link(link_amazon)
                     id_univoco = asin if asin else link_amazon
                     
                     if not gia_pubblicato(id_univoco):
+                        print(f"DEBUG: Nuova offerta mai pubblicata! Procedo con l'invio...", flush=True)
                         img_tag = soup.find('img', src=True)
                         foto_url = img_tag['src'] if img_tag else "https://images.unsplash.com/photo-1523474253046-8cd2748b5fd2?w=600"
                         titolo = entry.title.replace("<", "").replace(">", "")
@@ -113,5 +117,10 @@ while True:
                         invia_telegram(foto_url, messaggio)
                         salva_in_memoria(id_univoco)
                         time.sleep(5)
+                    else:
+                        print(f"DEBUG: Articolo già pubblicato in passato ({id_univoco}), lo salto.", flush=True)
                 
-                time.sleep(5)
+            time.sleep(5)
+    else:
+        print("DEBUG: Ora non consentita dalle impostazioni. Il bot riproverà tra 5 minuti.", flush=True)
+        time.sleep(300)
